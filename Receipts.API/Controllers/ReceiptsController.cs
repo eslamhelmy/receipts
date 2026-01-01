@@ -7,40 +7,39 @@ using Receipts.Infrastructure;
 namespace Receipts.API.Controllers;
 
 [ApiController]
-    [Route("api/receipts")]
-    public class ReceiptsController(
-        ReceiptsDbContext dbContext,
-        IBackgroundJobClient backgroundJobClient,
-        IReceiptFileService receiptFileService)
-        : ControllerBase
+[Route("api/receipts")]
+public class ReceiptsController(
+    ReceiptsDbContext dbContext,
+    IBackgroundJobClient backgroundJobClient,
+    IReceiptFileService receiptFileService)
+    : ControllerBase
+{
+    [HttpPost]
+    public async Task<IActionResult> ProcessReceipt([FromForm] CreateReceiptRequest request)
     {
-
-        [HttpPost]
-        public async Task<IActionResult> ProcessReceipt([FromForm] CreateReceiptRequest request)
+        // [ApiController] handles model binding/validation responses; here we add file-specific validation
+        if (!receiptFileService.TryValidate(request.File, out var fileValidationError))
         {
-            // [ApiController] handles model binding/validation responses; here we add file-specific validation
-            if (!receiptFileService.TryValidate(request.File, out var fileValidationError))
-            {
-                return BadRequest(fileValidationError);
-            }
-
-            var receipt = new Receipt
-            {
-                Id = Guid.NewGuid(),
-                Status = ReceiptStatus.Pending,
-                CreatedAt = DateTime.UtcNow,
-                DocumentUrl = await receiptFileService.SimulateUploadAsync(request.File),
-                UserId = request.UserId,
-                Amount = request.Amount,
-                Currency = request.Currency.ToUpperInvariant(),
-                ReceiptDate = request.ReceiptDate
-            };
-
-            await dbContext.Receipts.AddAsync(receipt);
-            await dbContext.SaveChangesAsync();
-
-            backgroundJobClient.Enqueue<IReceiptProcessor>(processor => processor.ProcessReceipt(receipt.Id));
-
-            return Accepted(new { receiptId = receipt.Id });
+            return BadRequest(fileValidationError);
         }
+
+        var receipt = new Receipt
+        {
+            Id = Guid.NewGuid(),
+            Status = ReceiptStatus.Pending,
+            CreatedAt = DateTime.UtcNow,
+            DocumentUrl = await receiptFileService.SimulateUploadAsync(request.File),
+            UserId = request.UserId,
+            Amount = request.Amount,
+            Currency = request.Currency.ToUpperInvariant(),
+            ReceiptDate = request.ReceiptDate
+        };
+
+        await dbContext.Receipts.AddAsync(receipt);
+        await dbContext.SaveChangesAsync();
+
+        backgroundJobClient.Enqueue<IReceiptProcessor>(processor => processor.ProcessReceipt(receipt.Id));
+
+        return Accepted(new { receiptId = receipt.Id });
     }
+}
