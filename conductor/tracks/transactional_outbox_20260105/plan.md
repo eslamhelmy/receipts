@@ -1,13 +1,13 @@
 # Implementation Plan - Pragmatic Transactional Outbox
 
-## Phase 1: Infrastructure & Data Model
+## Phase 1: Infrastructure & Data Model [checkpoint: abd5c2d]
 - [x] Task: Create `OutboxMessage` entity in `Receipts.Infrastructure`. [21e3166]
     - [ ] Sub-task: Define `OutboxMessage` class with properties: `Id` (Guid), `OccurredOn` (DateTime), `Type` (string), `Payload` (string/JSON), `ProcessedDate` (DateTime?).
     - [ ] Sub-task: Configure the entity mapping in `ReceiptsDbContext` (e.g., indexes on `ProcessedDate`).
 - [x] Task: Database Migration. [8e94d61]
     - [ ] Sub-task: Generate a new EF Core migration for the `OutboxMessages` table.
     - [ ] Sub-task: Apply the migration to the local database.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Infrastructure & Data Model' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Infrastructure & Data Model' (Protocol in workflow.md)
 
 ## Phase 2: Transactional Logic in API
 - [ ] Task: Update `ReceiptsController` to implement Outbox pattern.
