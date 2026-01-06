@@ -10,6 +10,7 @@ namespace Receipts.API.Controllers;
 [Route("api/receipts")]
 public class ReceiptsController(
     ReceiptsDbContext dbContext,
+    IBackgroundJobClient backgroundJobClient,
     IReceiptFileService receiptFileService)
     : ControllerBase
 {
@@ -34,30 +35,10 @@ public class ReceiptsController(
             ReceiptDate = request.ReceiptDate
         };
 
-        using var transaction = await dbContext.Database.BeginTransactionAsync();
-        try
-        {
-            await dbContext.Receipts.AddAsync(receipt);
+        await dbContext.Receipts.AddAsync(receipt);
+        await dbContext.SaveChangesAsync();
 
-            var outboxMessage = new OutboxMessage
-            {
-                Id = Guid.NewGuid(),
-                OccurredOn = DateTime.UtcNow,
-                Type = "ReceiptCreated",
-                Payload = System.Text.Json.JsonSerializer.Serialize(new { ReceiptId = receipt.Id }),
-                ProcessedDate = null
-            };
-
-            await dbContext.OutboxMessages.AddAsync(outboxMessage);
-
-            await dbContext.SaveChangesAsync();
-            await transaction.CommitAsync();
-        }
-        catch (Exception)
-        {
-            await transaction.RollbackAsync();
-            throw;
-        }
+        backgroundJobClient.Enqueue<IReceiptProcessor>(processor => processor.ProcessReceipt(receipt.Id));
 
         return Accepted(new { receiptId = receipt.Id });
     }
