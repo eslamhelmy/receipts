@@ -9,12 +9,12 @@
     - [ ] Sub-task: Apply the migration to the local database.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Infrastructure & Data Model' (Protocol in workflow.md)
 
-## Phase 2: Transactional Logic in API [checkpoint: 98bcf07]
+## Phase 2: Transactional Logic in API
 - [x] Task: Update `ReceiptsController` to implement Outbox pattern. [6192eb8]
     - [ ] Sub-task: Write unit tests in `Receipts.API.Tests` to verify that `ReceiptsController` no longer calls `IBackgroundJobClient` directly.
     - [ ] Sub-task: Refactor the POST endpoint to wrap `Receipt` creation and `OutboxMessage` creation in a single `IDbContextTransaction`.
     - [ ] Sub-task: Ensure the `OutboxMessage` payload contains the necessary ID for processing.
-- [x] Task: Conductor - User Manual Verification 'Phase 2: Transactional Logic in API' (Protocol in workflow.md)
+- [ ] Task: Conductor - User Manual Verification 'Phase 2: Transactional Logic in API' (Protocol in workflow.md)
 
 ## Phase 3: Outbox Processor Job
 - [ ] Task: Implement the Outbox Processor logic.
