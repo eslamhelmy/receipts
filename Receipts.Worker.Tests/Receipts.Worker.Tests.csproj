@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Receipts.Worker\Receipts.Worker.csproj" />
     <ProjectReference Include="..\Receipts.Infrastructure\Receipts.Infrastructure.csproj" />
-    <ProjectReference Include="..\Receipts.API\Receipts.API.csproj" />
   </ItemGroup>
 
 </Project>
