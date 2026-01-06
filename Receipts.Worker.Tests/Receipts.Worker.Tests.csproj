@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Receipts.Worker\Receipts.Worker.csproj" />
     <ProjectReference Include="..\Receipts.Infrastructure\Receipts.Infrastructure.csproj" />
   </ItemGroup>
 
