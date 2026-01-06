@@ -5,6 +5,8 @@
   - Provides a high-performance, cross-platform foundation for the API and worker services.
 - **Background Jobs:** Hangfire
   - Manages asynchronous processing for OCR tasks and scheduled reconciliation jobs, ensuring reliability and observability.
+- **Outbox Pattern:**
+  - Implemented to guarantee atomic persistence of business data and background job intent.
 
 ## Data Persistence
 - **Database:** SQL Server
