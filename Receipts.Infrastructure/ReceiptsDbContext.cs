@@ -9,7 +9,6 @@ public class ReceiptsDbContext : DbContext
     }
 
     public DbSet<Receipt> Receipts { get; set; } = null!;
-    public DbSet<OutboxMessage> OutboxMessages { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,12 +24,6 @@ public class ReceiptsDbContext : DbContext
             entity.Property(r => r.Amount).HasColumnType("decimal(18,2)");
             entity.Property(r => r.ReceiptDate);
             entity.Property(r => r.Status).HasConversion<int>();
-        });
-
-        modelBuilder.Entity<OutboxMessage>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => e.ProcessedDate);
         });
     }
 }
