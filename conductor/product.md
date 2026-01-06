@@ -18,8 +18,6 @@ The project is a Receipt Management System designed to help individual users rec
     -   A user-friendly web interface allowing users to easily drag and drop receipt files for processing.
 5.  **Financial Audit Trail:**
     -   Maintains a rigorous log of all data modifications and actions to support financial auditing and ensure data integrity.
-6.  **Transactional Reliability (Outbox Pattern):**
-    -   Ensures that every submitted receipt is reliably queued for processing by using the Transactional Outbox pattern, preventing data loss even during transient failures.
 
 ## Project Goals
 -   **Primary Goal:** To facilitate seamless and accurate reconciliation between individual invoices/receipts and account statements, ensuring that all expenses are accounted for and verified.
