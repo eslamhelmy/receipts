@@ -25,9 +25,9 @@
     - [ ] Sub-task: Update `Program.cs` (in API or Worker) to schedule the recurring job (e.g., every minute).
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Outbox Processor Job' (Protocol in workflow.md)
 
-## Phase 4: Final Verification
+## Phase 4: Final Verification [checkpoint: 4d26958]
 - [x] Task: End-to-End Functional Test. [5b0ee7b]
     - [ ] Sub-task: Submit a receipt via the API.
     - [ ] Sub-task: Verify the `OutboxMessage` is created and initially has a null `ProcessedDate`.
     - [ ] Sub-task: Wait for the recurring job to run and verify the message is marked as processed and the receipt is eventually processed by the original worker.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Final Verification' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Final Verification' (Protocol in workflow.md)
