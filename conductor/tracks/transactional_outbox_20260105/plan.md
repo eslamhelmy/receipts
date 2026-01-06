@@ -17,11 +17,11 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Transactional Logic in API' (Protocol in workflow.md)
 
 ## Phase 3: Outbox Processor Job
-- [x] Task: Implement the Outbox Processor logic. [1ca0e73]
+- [ ] Task: Implement the Outbox Processor logic.
     - [ ] Sub-task: Create a new service or class `OutboxProcessor` to handle the polling logic.
     - [ ] Sub-task: Write unit tests to verify that it correctly identifies unprocessed messages and marks them as processed after "dispatching".
     - [ ] Sub-task: Implement logic to query `OutboxMessages` where `ProcessedDate` is null, and for each, enqueue the actual processing job via Hangfire.
-- [x] Task: Register the Outbox Processor as a Hangfire Recurring Job. [1ca0e73]
+- [ ] Task: Register the Outbox Processor as a Hangfire Recurring Job.
     - [ ] Sub-task: Update `Program.cs` (in API or Worker) to schedule the recurring job (e.g., every minute).
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Outbox Processor Job' (Protocol in workflow.md)
 
