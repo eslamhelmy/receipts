@@ -26,7 +26,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Outbox Processor Job' (Protocol in workflow.md)
 
 ## Phase 4: Final Verification
-- [ ] Task: End-to-End Functional Test.
+- [x] Task: End-to-End Functional Test. [5b0ee7b]
     - [ ] Sub-task: Submit a receipt via the API.
     - [ ] Sub-task: Verify the `OutboxMessage` is created and initially has a null `ProcessedDate`.
     - [ ] Sub-task: Wait for the recurring job to run and verify the message is marked as processed and the receipt is eventually processed by the original worker.
