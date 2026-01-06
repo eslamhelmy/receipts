@@ -4,7 +4,7 @@
 - [x] Task: Create `OutboxMessage` entity in `Receipts.Infrastructure`. [21e3166]
     - [ ] Sub-task: Define `OutboxMessage` class with properties: `Id` (Guid), `OccurredOn` (DateTime), `Type` (string), `Payload` (string/JSON), `ProcessedDate` (DateTime?).
     - [ ] Sub-task: Configure the entity mapping in `ReceiptsDbContext` (e.g., indexes on `ProcessedDate`).
-- [x] Task: Database Migration. [8e94d61]
+- [ ] Task: Database Migration.
     - [ ] Sub-task: Generate a new EF Core migration for the `OutboxMessages` table.
     - [ ] Sub-task: Apply the migration to the local database.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Infrastructure & Data Model' (Protocol in workflow.md)
