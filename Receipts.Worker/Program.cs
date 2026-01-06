@@ -27,21 +27,10 @@ var builder = Host.CreateDefaultBuilder(args)
         });
         services.AddHangfireServer();
 
-        // Register the processors
+        // Register the receipt processor
         services.AddScoped<IReceiptProcessor, ReceiptProcessor>();
-        services.AddScoped<IOutboxProcessor, OutboxProcessor>();
     });
 
 var host = builder.Build();
-
-// Configure Hangfire recurring jobs
-using (var scope = host.Services.CreateScope())
-{
-    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
-    recurringJobManager.AddOrUpdate<IOutboxProcessor>(
-        "outbox-processor",
-        processor => processor.ProcessMessagesAsync(),
-        Cron.Minutely);
-}
 
 host.Run();
