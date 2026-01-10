@@ -12,7 +12,7 @@ public class OutboxDispatcher(
     public async Task DispatchAsync()
     {
         var messages = await dbContext.OutboxMessages
-            .Where(m => m.Status == OutboxStatus.New)
+            .Where(m => m.Status == OutboxStatus.New || (m.Status == OutboxStatus.Failed && m.RetryCount < 3))
             .OrderBy(m => m.CreatedAt)
             .Take(20)
             .ToListAsync();
@@ -21,6 +21,8 @@ public class OutboxDispatcher(
         {
             try
             {
+                message.Status = OutboxStatus.Processing;
+
                 if (message.Type == typeof(ProcessReceiptMessage).FullName)
                 {
                     var payload = JsonSerializer.Deserialize<ProcessReceiptMessage>(message.Payload);
@@ -32,10 +34,13 @@ public class OutboxDispatcher(
 
                 message.Status = OutboxStatus.Completed;
                 message.ProcessedAt = DateTime.UtcNow;
+                message.Error = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 message.Status = OutboxStatus.Failed;
+                message.RetryCount++;
+                message.Error = ex.Message;
             }
         }
 
