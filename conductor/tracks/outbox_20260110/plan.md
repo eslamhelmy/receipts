@@ -17,7 +17,7 @@ Implementation of the Transactional Outbox pattern to ensure reliable asynchrono
     - [x] Sub-task: Update `ReceiptsController` to use a transaction and save `OutboxMessage` instead of direct Hangfire enqueue
 - [x] Task: Conductor - User Manual Verification 'Transactional Persistence' (Protocol in workflow.md)
 
-## Phase 3: Outbox Dispatcher
+## Phase 3: Outbox Dispatcher [checkpoint: 2c646e3]
 - [x] Task: Create `IOutboxDispatcher` and implementation 957a2b0
     - [x] Sub-task: Write Tests for dispatcher polling and job enqueuing logic
     - [x] Sub-task: Implement `OutboxDispatcher` that reads `New` messages and enqueues to Hangfire
