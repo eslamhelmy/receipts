@@ -6,9 +6,9 @@ Implementation of the Transactional Outbox pattern to ensure reliable asynchrono
 - [x] Task: Create `OutboxMessage` entity in `Receipts.Infrastructure` 14fa465
     - [x] Sub-task: Write Tests for `OutboxMessage` entity validation and serialization
     - [x] Sub-task: Implement `OutboxMessage` entity and `OutboxStatus` enum
-- [ ] Task: Update `ReceiptsDbContext` to include `OutboxMessages` DbSet
-    - [ ] Sub-task: Write Integration Tests for `OutboxMessages` persistence
-    - [ ] Sub-task: Update `ReceiptsDbContext` and create EF Migration
+- [x] Task: Update `ReceiptsDbContext` to include `OutboxMessages` DbSet 4d7a334
+    - [x] Sub-task: Write Integration Tests for `OutboxMessages` persistence
+    - [x] Sub-task: Update `ReceiptsDbContext` and create EF Migration
 - [ ] Task: Conductor - User Manual Verification 'Infrastructure & Data Model' (Protocol in workflow.md)
 
 ## Phase 2: Transactional Persistence
