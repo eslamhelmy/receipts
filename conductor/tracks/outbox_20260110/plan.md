@@ -2,7 +2,7 @@
 
 Implementation of the Transactional Outbox pattern to ensure reliable asynchronous processing of receipts.
 
-## Phase 1: Infrastructure & Data Model
+## Phase 1: Infrastructure & Data Model [checkpoint: e148af2]
 - [x] Task: Create `OutboxMessage` entity in `Receipts.Infrastructure` 14fa465
     - [x] Sub-task: Write Tests for `OutboxMessage` entity validation and serialization
     - [x] Sub-task: Implement `OutboxMessage` entity and `OutboxStatus` enum
