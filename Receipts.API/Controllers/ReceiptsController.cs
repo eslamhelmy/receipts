@@ -3,6 +3,8 @@ using Hangfire;
 using Receipts.API.Services;
 using Receipts.API.Contracts;
 using Receipts.Infrastructure;
+using Receipts.Infrastructure.Messages;
+using System.Text.Json;
 
 namespace Receipts.API.Controllers;
 
@@ -10,7 +12,6 @@ namespace Receipts.API.Controllers;
 [Route("api/receipts")]
 public class ReceiptsController(
     ReceiptsDbContext dbContext,
-    IBackgroundJobClient backgroundJobClient,
     IReceiptFileService receiptFileService)
     : ControllerBase
 {
@@ -34,10 +35,28 @@ public class ReceiptsController(
             ReceiptDate = request.ReceiptDate
         };
 
-        await dbContext.Receipts.AddAsync(receipt);
-        await dbContext.SaveChangesAsync();
+        var outboxMessage = new OutboxMessage
+        {
+            Id = Guid.NewGuid(),
+            Type = typeof(ProcessReceiptMessage).FullName!,
+            Payload = JsonSerializer.Serialize(new ProcessReceiptMessage(receipt.Id)),
+            Status = OutboxStatus.New,
+            CreatedAt = DateTime.UtcNow
+        };
 
-        backgroundJobClient.Enqueue<IReceiptProcessor>(processor => processor.ProcessReceipt(receipt.Id));
+        using var transaction = await dbContext.Database.BeginTransactionAsync();
+        try
+        {
+            await dbContext.Receipts.AddAsync(receipt);
+            await dbContext.OutboxMessages.AddAsync(outboxMessage);
+            await dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
 
         return Accepted(new { receiptId = receipt.Id });
     }
