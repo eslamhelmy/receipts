@@ -18,9 +18,9 @@ Implementation of the Transactional Outbox pattern to ensure reliable asynchrono
 - [x] Task: Conductor - User Manual Verification 'Transactional Persistence' (Protocol in workflow.md)
 
 ## Phase 3: Outbox Dispatcher
-- [ ] Task: Create `IOutboxDispatcher` and implementation
-    - [ ] Sub-task: Write Tests for dispatcher polling and job enqueuing logic
-    - [ ] Sub-task: Implement `OutboxDispatcher` that reads `New` messages and enqueues to Hangfire
+- [x] Task: Create `IOutboxDispatcher` and implementation 957a2b0
+    - [x] Sub-task: Write Tests for dispatcher polling and job enqueuing logic
+    - [x] Sub-task: Implement `OutboxDispatcher` that reads `New` messages and enqueues to Hangfire
 - [ ] Task: Configure Hangfire Recurring Job for Dispatcher
     - [ ] Sub-task: Write Integration Tests for recurring job registration and execution
     - [ ] Sub-task: Register `OutboxDispatcher.Dispatch` as a recurring job in `Program.cs`
