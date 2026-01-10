@@ -30,4 +30,4 @@ Implementation of the Transactional Outbox pattern to ensure reliable asynchrono
 - [x] Task: Implement retry logic and error state handling in Dispatcher 31efe93
     - [x] Sub-task: Write Tests for failed dispatch scenarios and status updates
     - [x] Sub-task: Update `OutboxDispatcher` with try-catch and status transitions to `Failed`
-- [ ] Task: Conductor - User Manual Verification 'Cleanup & Error Handling' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Cleanup & Error Handling' (Protocol in workflow.md)
