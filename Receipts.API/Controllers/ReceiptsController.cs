@@ -17,7 +17,6 @@ public class ReceiptsController(
     [HttpPost]
     public async Task<IActionResult> ProcessReceipt([FromForm] CreateReceiptRequest request)
     {
-        // [ApiController] handles model binding/validation responses; here we add file-specific validation
         if (!receiptFileService.TryValidate(request.File, out var fileValidationError))
         {
             return BadRequest(fileValidationError);
