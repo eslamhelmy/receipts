@@ -26,7 +26,7 @@ Implementation of the Transactional Outbox pattern to ensure reliable asynchrono
     - [x] Sub-task: Register `OutboxDispatcher.Dispatch` as a recurring job in `Program.cs`
 - [x] Task: Conductor - User Manual Verification 'Outbox Dispatcher' (Protocol in workflow.md)
 
-## Phase 4: Cleanup & Error Handling
+## Phase 4: Cleanup & Error Handling [checkpoint: fd07237]
 - [x] Task: Implement retry logic and error state handling in Dispatcher 31efe93
     - [x] Sub-task: Write Tests for failed dispatch scenarios and status updates
     - [x] Sub-task: Update `OutboxDispatcher` with try-catch and status transitions to `Failed`
