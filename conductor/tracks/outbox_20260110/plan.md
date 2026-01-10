@@ -11,7 +11,7 @@ Implementation of the Transactional Outbox pattern to ensure reliable asynchrono
     - [x] Sub-task: Update `ReceiptsDbContext` and create EF Migration
 - [x] Task: Conductor - User Manual Verification 'Infrastructure & Data Model' (Protocol in workflow.md)
 
-## Phase 2: Transactional Persistence
+## Phase 2: Transactional Persistence [checkpoint: 49884a2]
 - [x] Task: Implement Outbox Pattern in `ReceiptsController` 738122b
     - [x] Sub-task: Write Tests for `ProcessReceipt` ensuring atomic save of Receipt and OutboxMessage
     - [x] Sub-task: Update `ReceiptsController` to use a transaction and save `OutboxMessage` instead of direct Hangfire enqueue
