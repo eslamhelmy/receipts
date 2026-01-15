@@ -8,6 +8,9 @@ using System.Text.Json;
 
 namespace Receipts.API.Controllers;
 
+/// <summary>
+/// Provides endpoints for managing and processing receipts.
+/// </summary>
 [ApiController]
 [Route("api/receipts")]
 public class ReceiptsController(
@@ -15,6 +18,12 @@ public class ReceiptsController(
     IReceiptFileService receiptFileService)
     : ControllerBase
 {
+    /// <summary>
+    /// Receives a receipt file and associated metadata, saves the receipt record, 
+    /// and queues a processing message via the transactional outbox pattern.
+    /// </summary>
+    /// <param name="request">The receipt upload request containing the file and metadata.</param>
+    /// <returns>An accepted result with the receipt ID if successful.</returns>
     [HttpPost]
     public async Task<IActionResult> ProcessReceipt([FromForm] CreateReceiptRequest request)
     {
@@ -44,6 +53,8 @@ public class ReceiptsController(
             CreatedAt = DateTime.UtcNow
         };
 
+        // Use a transaction to ensure both the receipt and the outbox message are saved atomically.
+        // This prevents data inconsistency where a receipt is saved but never processed.
         using var transaction = await dbContext.Database.BeginTransactionAsync();
         try
         {

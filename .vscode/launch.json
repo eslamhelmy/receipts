@@ -1,13 +1,47 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "name": ".NET Core Attach",
-        "type": "coreclr",
-        "request": "attach"
-    }
+        
+        {
+            "name": "Run Receipts API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // UPDATED: net10.0
+            "program": "${workspaceFolder}/Receipts.API/bin/Debug/net10.0/Receipts.API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Receipts.API",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "Run Receipts Worker",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // UPDATED: net10.0
+            "program": "${workspaceFolder}/Receipts.Worker/bin/Debug/net10.0/Receipts.Worker.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Receipts.Worker",
+            "stopAtEntry": false,
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Run Both (API & Worker)",
+            "configurations": ["Run Receipts API", "Run Receipts Worker"]
+        }
     ]
 }
