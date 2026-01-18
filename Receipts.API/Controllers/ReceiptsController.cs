@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Hangfire;
 using Receipts.API.Services;
 using Receipts.API.Contracts;
@@ -70,5 +71,46 @@ public class ReceiptsController(
         }
 
         return Accepted(new { receiptId = receipt.Id });
+    }
+
+    /// <summary>
+    /// Gets a paginated list of receipts for a specific user.
+    /// </summary>
+    /// <param name="request">The query parameters including userId, page, and pageSize.</param>
+    /// <returns>A paginated list of receipts.</returns>
+    [HttpGet]
+    public async Task<IActionResult> GetReceipts([FromQuery] GetReceiptsRequest request)
+    {
+        var query = dbContext.Receipts
+            .Where(r => r.UserId == request.UserId)
+            .OrderByDescending(r => r.CreatedAt);
+
+        var totalCount = await query.CountAsync();
+
+        var receipts = await query
+            .Skip((request.Page - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(r => new ReceiptResponse
+            {
+                Id = r.Id,
+                Status = r.Status.ToString(),
+                CreatedAt = r.CreatedAt,
+                DocumentUrl = r.DocumentUrl,
+                UserId = r.UserId,
+                Amount = r.Amount,
+                Currency = r.Currency,
+                ReceiptDate = r.ReceiptDate
+            })
+            .ToListAsync();
+
+        var response = new PagedResponse<ReceiptResponse>
+        {
+            Items = receipts,
+            Page = request.Page,
+            PageSize = request.PageSize,
+            TotalCount = totalCount
+        };
+
+        return Ok(response);
     }
 }
