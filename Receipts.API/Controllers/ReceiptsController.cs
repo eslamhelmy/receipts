@@ -27,7 +27,7 @@ public class ReceiptsController(
     [HttpPost]
     public async Task<IActionResult> ProcessReceipt([FromForm] CreateReceiptRequest request)
     {
-        if (!receiptFileService.TryValidate(request.File, out var fileValidationError))
+        if (receiptFileService.TryValidate(request.File, out var fileValidationError))
         {
             return BadRequest(fileValidationError);
         }
