@@ -6,12 +6,16 @@ allowed-tools: Bash(git fetch:*), Bash(git diff:*), Bash(git log:*), Read, Grep
 
 # PR Code Review
 
-!`git fetch origin`
-## Commits
-!`git log --oneline origin/main...origin/${1}`
+Reviewing branch: $ARGUMENTS
 
-## Changes
-!`git diff origin/main...origin/${1}`
+## Steps
+
+1. First run: `git fetch origin`
+2. Get commits: `git log --oneline origin/main...origin/$ARGUMENTS`
+3. Get diff: `git diff origin/main...origin/$ARGUMENTS`
+
+Then analyze the changes.
+
 ---
 
 ## Review Instructions
