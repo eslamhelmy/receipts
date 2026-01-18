@@ -7,13 +7,11 @@ allowed-tools: Bash(git fetch:*), Bash(git diff:*), Bash(git log:*), Read, Grep
 # PR Code Review
 
 !`git fetch origin`
-
 ## Commits
-!`git log --oneline origin/main...origin/$1`
+!`git log --oneline origin/main...origin/${1}`
 
 ## Changes
-!`git diff origin/main...origin/$1`
-
+!`git diff origin/main...origin/${1}`
 ---
 
 ## Review Instructions
