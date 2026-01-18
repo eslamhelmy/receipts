@@ -1,5 +1,5 @@
 ---
-description: Review PR changes between master and feature branch
+description: Review PR changes between main and feature branch
 argument-hint: <feature-branch-name>
 allowed-tools: Bash(git fetch:*), Bash(git diff:*), Bash(git log:*), Read, Grep
 ---
@@ -9,10 +9,10 @@ allowed-tools: Bash(git fetch:*), Bash(git diff:*), Bash(git log:*), Read, Grep
 !`git fetch origin`
 
 ## Commits
-!`git log --oneline origin/master...origin/$1`
+!`git log --oneline origin/main...origin/$1`
 
 ## Changes
-!`git diff origin/master...origin/$1`
+!`git diff origin/main...origin/$1`
 
 ---
 
